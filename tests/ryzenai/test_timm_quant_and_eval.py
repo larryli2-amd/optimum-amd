@@ -85,7 +85,7 @@ def parse_args():
 def main(args):
     torch.multiprocessing.set_sharing_strategy("file_system")
     # prepare val data and calib data
-    if (args.calib_data_path is None and args.eval_data_path is None) and args.val_path is not None:
+    if (args.calib_data_path is not None and args.eval_data_path is not None) or args.val_path is not None:
         source_folder = "val_data"
         calib_data_path = "calib_data"
         if os.path.isdir(source_folder) and os.path.isdir(calib_data_path):
@@ -140,7 +140,7 @@ def main(args):
                     break
 
             print("Creating calibration dataset complete.")
-        args.calib_data_path = calib_data_path
+        # args.calib_data_path = calib_data_path
         args.eval_data_path = source_folder
 
     model_id = args.model_id
